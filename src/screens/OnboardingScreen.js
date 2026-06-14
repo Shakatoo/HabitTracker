@@ -5,7 +5,6 @@ import {
   TouchableOpacity, View,
 } from 'react-native';
 import { useApp } from '../context/AppContext';
-import { save, Keys } from '../utils/storage';
 import { requestPermission, scheduleDaily } from '../utils/notifications';
 
 const PURPLE = '#6C47FF';
@@ -15,8 +14,8 @@ const EMOJIS = [
   '🎨', '🎵', '🎯', '😴', '🌅', '💊',
 ];
 
-export default function OnboardingScreen({ navigation }) {
-  const { addHabit, createChallenge } = useApp();
+export default function OnboardingScreen() {
+  const { addHabit, createChallenge, setOnboarded } = useApp();
   const [step, setStep] = useState(0); // 0=welcome, 1=habit, 2=challenge
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('💪');
@@ -32,10 +31,9 @@ export default function OnboardingScreen({ navigation }) {
       durationDays: duration,
       startDate: new Date().toISOString().slice(0, 10),
     });
-    await save(Keys.ONBOARDED, true);
+    setOnboarded(true); // triggers RootNavigator to show MainTabs
     const granted = await requestPermission();
     if (granted) await scheduleDaily([habit]);
-    navigation.replace('Main');
   }
 
   if (step === 0) {

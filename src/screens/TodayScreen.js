@@ -24,6 +24,7 @@ const TODAY = new Date().toLocaleDateString('en-US', { weekday: 'long', month: '
 
 export default function TodayScreen({ navigation }) {
   const app = useApp();
+  const { syncing, signOut } = app;
   const [showAdd, setShowAdd] = useState(false);
   const [editingHabit, setEditingHabit] = useState(null);
   const [allDoneModal, setAllDoneModal] = useState(false);
@@ -107,8 +108,15 @@ export default function TodayScreen({ navigation }) {
     <SafeAreaView style={styles.root}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.greeting}>{allDone ? '🎉 All done!' : greeting()}</Text>
-        <Text style={styles.date}>{TODAY}</Text>
+        <View style={styles.headerTop}>
+          <Text style={styles.greeting}>{allDone ? '🎉 All done!' : greeting()}</Text>
+          <TouchableOpacity onPress={signOut} activeOpacity={0.7}>
+            <Text style={styles.signOutBtn}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.date}>
+          {TODAY}{syncing ? '  ·  syncing…' : ''}
+        </Text>
         <View style={styles.progressRow}>
           <Text style={styles.progressLabel}>{completed} / {total} habits</Text>
           <Text style={styles.progressPct}>{Math.round(progress * 100)}%</Text>
@@ -188,7 +196,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24, paddingTop: 20, paddingBottom: 28,
     borderBottomLeftRadius: 28, borderBottomRightRadius: 28,
   },
-  greeting: { color: '#fff', fontSize: 26, fontWeight: '700', marginBottom: 2 },
+  headerTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 },
+  greeting: { color: '#fff', fontSize: 26, fontWeight: '700' },
+  signOutBtn: { color: 'rgba(255,255,255,0.6)', fontSize: 13, fontWeight: '500' },
   date: { color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 20 },
   progressRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   progressLabel: { color: 'rgba(255,255,255,0.85)', fontSize: 13, fontWeight: '500' },
