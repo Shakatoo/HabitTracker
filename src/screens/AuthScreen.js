@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator, KeyboardAvoidingView, Platform,
-  SafeAreaView, StyleSheet, Text, TextInput,
+  StyleSheet, Text, TextInput,
   TouchableOpacity, View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../utils/supabase';
 
 const PURPLE = '#6C47FF';

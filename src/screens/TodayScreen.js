@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Animated, SafeAreaView, ScrollView, StyleSheet,
+  Animated, ScrollView, StyleSheet,
   Text, TouchableOpacity, View, Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useApp } from '../context/AppContext';
 import HabitCard from '../components/HabitCard';
 import AddHabitModal from '../components/AddHabitModal';
@@ -126,7 +127,7 @@ export default function TodayScreen({ navigation }) {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView style={styles.scrollBg} contentContainerStyle={styles.scroll}>
         {/* Challenge banner */}
         {app.challenge?.status === 'active' && (
           <TouchableOpacity
@@ -190,7 +191,7 @@ export default function TodayScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#F5F3FF' },
+  root: { flex: 1, backgroundColor: PURPLE },
   header: {
     backgroundColor: PURPLE,
     paddingHorizontal: 24, paddingTop: 20, paddingBottom: 28,
@@ -205,6 +206,7 @@ const styles = StyleSheet.create({
   progressPct: { color: '#fff', fontSize: 13, fontWeight: '700' },
   track: { height: 8, backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: 4, overflow: 'hidden' },
   fill: { height: '100%', backgroundColor: '#fff', borderRadius: 4 },
+  scrollBg: { flex: 1, backgroundColor: '#F5F3FF' },
   scroll: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 100, gap: 12 },
   challengeBanner: {
     flexDirection: 'row', alignItems: 'center',

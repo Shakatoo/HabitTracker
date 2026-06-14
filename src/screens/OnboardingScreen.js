@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import {
-  KeyboardAvoidingView, Platform, SafeAreaView,
+  KeyboardAvoidingView, Platform,
   ScrollView, StyleSheet, Text, TextInput,
   TouchableOpacity, View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useApp } from '../context/AppContext';
 import { requestPermission, scheduleDaily } from '../utils/notifications';
 
